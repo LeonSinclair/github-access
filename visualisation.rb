@@ -25,7 +25,7 @@ module Example
 
     register Sinatra::Auth::Github
 
-    get '/langfreq' do
+    get '/' do
       if !authenticated?
         authenticate!
       else
