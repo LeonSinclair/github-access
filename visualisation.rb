@@ -31,7 +31,7 @@ module Example
       else
         octokit_client = Octokit::Client.new(:login => github_user.login, :access_token => github_user.token)
         user = Octokit.user 'fabpot'
-        repos = user.repositories
+        repos = user[public_repos]
         language_obj = {}
         repos.each do |repo|
           # sometimes language can be nil
