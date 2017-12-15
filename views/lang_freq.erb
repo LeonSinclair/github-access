@@ -63,7 +63,7 @@
         attr("dx", -barWidth/2).
         attr("dy", "1.2em").
         attr("text-anchor", "middle").
-        text(function(datum) { return datum.count;});
+        text(function(datum) { return datum.count + datum.language;});
 
       languageBars.selectAll("text.yAxis").
         data(data).
