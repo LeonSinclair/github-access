@@ -1,6 +1,5 @@
 source "http://rubygems.org"
 
-ruby '~>2.3'
 gem "json", "~>2.1.0"
 gem "sinatra", "~>1.4.8"
 gem "sinatra_auth_github", "~>1.2.0"
