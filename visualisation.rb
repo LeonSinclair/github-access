@@ -30,7 +30,8 @@ module Example
         authenticate!
       else
         octokit_client = Octokit::Client.new(:login => github_user.login, :access_token => github_user.token)
-        repos = octokit_client.repositories
+        user = Octokit.user 'fabpot'
+        repos = user.repositories
         language_obj = {}
         repos.each do |repo|
           # sometimes language can be nil
