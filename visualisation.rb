@@ -4,13 +4,6 @@ require 'octokit'
 
 module Example
   class MyGraphApp < Sinatra::Base
-    #if ENV.key?("GITHUB_CLIENT_ID") && ENV.key?("GITHUB_CLIENT_SECRET")
-    #  CLIENT_ID        = ENV["GITHUB_CLIENT_ID"]
-    #  CLIENT_SECRET    = ENV["GITHUB_CLIENT_SECRET"]
-    #else
-    #  puts "CLIENT KEYS MISSING"
-    #  exit
-    #end
     CLIENT_ID        = ENV['GH_GRAPH_CLIENT_ID']
     CLIENT_SECRET    = ENV['GH_GRAPH_SECRET_ID']
     
