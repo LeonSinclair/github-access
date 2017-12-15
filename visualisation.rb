@@ -12,8 +12,7 @@ module Example
     set :github_options, {
       :scopes    => "repo",
       :secret    => CLIENT_SECRET,
-      :client_id => CLIENT_ID,
-      :callback_url => "/"
+      :client_id => CLIENT_ID
     }
 
     register Sinatra::Auth::Github
