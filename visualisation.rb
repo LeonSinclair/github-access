@@ -39,6 +39,7 @@ module Example
         @language_obj.each do |lang, count|
           languages.push :language => lang, :count => count
         end
+        puts languages
 
         @language_byte_count = []
         repos.each do |repo|
@@ -64,9 +65,6 @@ module Example
         @language_obj.each do |lang, count|
           @language_byte_count.push :name => "#{lang} (#{count})", :count => count
         end
-
-        # some mandatory formatting for d3
-        @language_bytes = [ :name => "language_bytes", :elements => @language_byte_count]
 
         erb :lang_freq
       end
