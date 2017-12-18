@@ -1,29 +1,21 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
 <html>
   <head>
-  	<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.0.1/d3.v3.min.js"></script>
-    <style>
-    svg {
-      padding: 20px;
-    }
-    rect {
-      fill: #2d578b
-    }
-    text {
-      fill: white;
-    }
-    text.yAxis {
-      font-size: 12px; 
-      font-family: Helvetica, sans-serif;
-      fill: black;
-    }
-    .cell {
-      position: absolute;
-    }
-    </style>
+    <title>Sinatra ERB Chartkick Test</title>
+    <script src="//www.google.com/jsapi"></script>
+    <script src="chartkick.js"></script>
   </head>
+
   <body>
-    
+    <center>
+      <h1> Language Byte - Pie Chart </h1>
+      <p>
+        <%= pie_chart (@language_byte_count) %>
+      </p>
+      <h1> Languages - Column Chart </h1>
+      <p>
+        <%= column_chart (@languages), xtitle: "Language", ytitle: "Appears in" %>
+      </p>
+    </center>
   </body>
 </html>
