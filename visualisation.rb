@@ -1,5 +1,6 @@
 require 'sinatra/auth/github'
 require 'octokit'
+require 'chartkick'
 
 
 module Example
