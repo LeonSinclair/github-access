@@ -1,6 +1,7 @@
 require 'sinatra/auth/github'
 require 'octokit'
 require 'chartkick'
+require 'groupdate'
 
 
 module Example
@@ -78,14 +79,17 @@ module Example
       @repo_search = params[:repo_searched] 
       repo_url = "#{@repo_search}"
       repo_commits = octokit_client.commits(repo_url)
-      @commits_data = []
+      @commits_data = {}
       repo_commits.map do |single_commit|
-        @commits_data.push (single_commit.commit.author.date)
+        if !@commits_data[single_commit]
+          !@commits_data[single_commit] = count
+        else
+          !@commits_data[single_commit] += count
+        end
       end
       erb :search
     rescue Octokit::NotFound
       puts "Error retrieving languages for #{repo_url}"
-      redirect '/error'
       erb :error
     end
   end
