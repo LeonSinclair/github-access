@@ -10,7 +10,7 @@ module Example
     
     enable :sessions
 
-    attr_accessor :language_bytes, :language_obj, :languages
+    attr_accessor :language_obj, :languages
     set :github_options, {
       :scopes    => "repo",
       :secret    => CLIENT_SECRET,
@@ -43,7 +43,6 @@ module Example
         end
         puts languages
 
-        @language_byte_count = []
         repos.each do |repo|
           repo_name = repo.name
           repo_langs = []
@@ -64,9 +63,6 @@ module Example
           end
         end
 
-        @language_obj.each do |lang, count|
-          @language_byte_count.push :name => "#{lang} (#{count})", :count => count
-        end
 
         erb :lang_freq
       end
