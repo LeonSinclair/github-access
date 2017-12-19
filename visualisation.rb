@@ -75,9 +75,6 @@ module Example
     redirect '/'
   end
 
-  get '/search' do
-    erb :search
-  end
   get '/error' do
     erb :error
   end
@@ -99,7 +96,6 @@ module Example
       erb :search
     rescue Octokit::NotFound
       puts "Error retrieving languages for #{repo_url}"
-      
       redirect '/error'
     end
   end
