@@ -9,7 +9,7 @@ module Example
     CLIENT_ID        = ENV['GH_GRAPH_CLIENT_ID']
     CLIENT_SECRET    = ENV['GH_GRAPH_SECRET_ID']
 
-    attr_accessor :language_obj, :languages, :repo_name
+    attr_accessor :language_obj, :languages, :repo_name, :commits_data, :repo_search
     
     enable :sessions
 
@@ -70,8 +70,16 @@ module Example
         erb :lang_freq
       end
     end
+
   post '/reroll' do
     redirect '/'
+  end
+
+  get '/search' do
+    erb :search
+  end
+  get '/error' do
+    erb :error
   end
 
   post '/search' do
@@ -91,7 +99,8 @@ module Example
       erb :search
     rescue Octokit::NotFound
       puts "Error retrieving languages for #{repo_url}"
-      erb :error
+      
+      redirect '/error'
     end
   end
 
