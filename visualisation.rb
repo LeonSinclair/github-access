@@ -51,7 +51,7 @@ module Example
   post '/reroll' do
     rerollRepo
 
-    erb :lang_freq
+    redirect '/'
   end
 
   def rerollRepo
