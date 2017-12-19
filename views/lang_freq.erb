@@ -10,7 +10,7 @@
     <center>
       <h1> Random Repo stats</h1>
       <p>
-        <%= pie_chart (@language_obj), donut: true %>
+        <%= pie_chart (@language_obj) %>
       </p>
       <form method="POST" action="/reroll">
         <button type = "submit"> Try for a different repo! </button>
