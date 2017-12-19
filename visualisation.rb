@@ -19,6 +19,28 @@ module Example
 
     register Sinatra::Auth::Github
 
+    def rerollRepo
+      repos = @octokit_client.repositories
+      repo = repos.sample
+      repo_name = repo.name
+      repo_langs = []
+      begin
+        repo_url = "#{github_user.login}/#{repo_name}"
+        repo_langs = @octokit_client.languages(repo_url)
+      rescue Octokit::NotFound
+        puts "Error retrieving languages for #{repo_url}"
+      end
+      if !repo_langs.empty?
+        repo_langs.each do |lang, count|
+          if !@language_obj[lang]
+            @language_obj[lang] = count
+          else
+            @language_obj[lang] += count
+          end
+        end
+      end
+    end
+    
     get '/' do
       if !authenticated?
         authenticate!
@@ -54,26 +76,6 @@ module Example
     redirect '/'
   end
 
-  def rerollRepo
-    repos = @octokit_client.repositories
-    repo = repos.sample
-    repo_name = repo.name
-    repo_langs = []
-    begin
-      repo_url = "#{github_user.login}/#{repo_name}"
-      repo_langs = @octokit_client.languages(repo_url)
-    rescue Octokit::NotFound
-      puts "Error retrieving languages for #{repo_url}"
-    end
-    if !repo_langs.empty?
-      repo_langs.each do |lang, count|
-        if !@language_obj[lang]
-          @language_obj[lang] = count
-        else
-          @language_obj[lang] += count
-        end
-      end
-    end
-  end
+  
   end
 end
