@@ -10,7 +10,7 @@ module Example
     
     enable :sessions
 
-    attr_accessor :language_obj, :languages
+    attr_accessor :language_obj, :languages, :octokit_client
     set :github_options, {
       :scopes    => "repo",
       :secret    => CLIENT_SECRET,
@@ -23,8 +23,8 @@ module Example
       if !authenticated?
         authenticate!
       else
-        octokit_client = Octokit::Client.new(:login => github_user.login, :access_token => github_user.token)
-        repos = octokit_client.repositories
+        @octokit_client = Octokit::Client.new(:login => github_user.login, :access_token => github_user.token)
+        repos = @octokit_client.repositories
         @language_obj = {}
         repos.each do |repo|
           # sometimes language can be nil
@@ -42,28 +42,36 @@ module Example
           @languages.push [lang, count]
         end
 
-        repo = repos.sample
-        repo_name = repo.name
-        repo_langs = []
-        begin
-          repo_url = "#{github_user.login}/#{repo_name}"
-          repo_langs = octokit_client.languages(repo_url)
-        rescue Octokit::NotFound
-          puts "Error retrieving languages for #{repo_url}"
-        end
-        if !repo_langs.empty?
-          repo_langs.each do |lang, count|
-            if !@language_obj[lang]
-              @language_obj[lang] = count
-            else
-              @language_obj[lang] += count
-            end
-          end
-        end
+        rerollRepo
 
 
         erb :lang_freq
       end
     end
+  post '/reroll' do
+    rerollRepo
+  end
+
+  def rerollRepo
+    repos = @octokit_client.repositories
+    repo = repos.sample
+    repo_name = repo.name
+    repo_langs = []
+    begin
+      repo_url = "#{github_user.login}/#{repo_name}"
+      repo_langs = @octokit_client.languages(repo_url)
+    rescue Octokit::NotFound
+      puts "Error retrieving languages for #{repo_url}"
+    end
+    if !repo_langs.empty?
+      repo_langs.each do |lang, count|
+        if !@language_obj[lang]
+          @language_obj[lang] = count
+        else
+          @language_obj[lang] += count
+        end
+      end
+    end
+  end
   end
 end
