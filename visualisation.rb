@@ -84,7 +84,7 @@ module Example
     begin
       @repo_search = params[:repo_searched] 
       repo_url = "#{@repo_search}"
-      repo_commits = @octokit_client.commits(repo_url)
+      repo_commits = @octokit_client.list_commits(repo_url)
       @commits_data = {}
       repo_commits.each do |single_commit|
         if !@commits_data[single_commit]
