@@ -9,7 +9,7 @@ module Example
     CLIENT_ID        = ENV['GH_GRAPH_CLIENT_ID']
     CLIENT_SECRET    = ENV['GH_GRAPH_SECRET_ID']
 
-    attr_accessor :language_obj, :languages,  :repo_name
+    attr_accessor :language_obj, :languages, :repo_name
     
     enable :sessions
 
@@ -55,6 +55,7 @@ module Example
         rescue Octokit::NotFound
           puts "Error retrieving languages for #{repo_url}"
         end
+        @language_obj = {}
         if !repo_langs.empty?
           repo_langs.each do |lang, count|
             if !@language_obj[lang]
