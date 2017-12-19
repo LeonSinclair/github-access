@@ -39,7 +39,7 @@ module Example
 
         @languages = []
         @language_obj.each do |lang, count|
-          @languages.push [:language => lang, :count => count]
+          @languages.push [lang, count]
         end
         puts languages
 
