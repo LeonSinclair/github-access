@@ -9,7 +9,8 @@ module Example
     CLIENT_SECRET    = ENV['GH_GRAPH_SECRET_ID']
     
     enable :sessions
-    attr_accessor :language_bytes, :language_obj, :language_byte_count
+
+    attr_accessor :language_bytes, :language_obj, :languages
     set :github_options, {
       :scopes    => "repo",
       :secret    => CLIENT_SECRET,
@@ -36,9 +37,9 @@ module Example
           end
         end
 
-        languages = []
+        @languages = []
         @language_obj.each do |lang, count|
-          languages.push :language => lang, :count => count
+          @languages.push [:language => lang, :count => count]
         end
         puts languages
 
