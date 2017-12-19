@@ -14,7 +14,7 @@
       </p>
       <h1> Languages - Column Chart </h1>
       <p>
-        <%= column_chart (@languages), colors: ["green", "red"], {library: {hAxis: {title: "Language"}, vAxis: {title: "# of repos"}}} %>
+        <%= column_chart (@languages), {library: {hAxis: {title: "Language"}, vAxis: {title: "# of repos"}}, :colors => ['green', 'red']} %>
       </p>
     </center>
   </body>
