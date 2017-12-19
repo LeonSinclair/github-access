@@ -94,9 +94,10 @@ module Example
         end
       end
       erb :search
-    rescue Octokit::NotFound
+    rescue Octokit::NotFound, Octokit::InvalidRepository
       redirect '/error'
     end
+    
   end
 
   
