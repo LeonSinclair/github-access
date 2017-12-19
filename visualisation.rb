@@ -87,10 +87,11 @@ module Example
       repo_commits = Octokit.list_commits(repo_url)
       @commits_data = {}
       repo_commits.each do |single_commit|
-        if !@commits_data[single_commit]
-          @commits_data[single_commit] = 1
+        commit_date = single_commit.author.date
+        if !@commits_data[commit_date]
+          @commits_data[commit_date] = 1
         else
-          @commits_data[single_commit] += 1
+          @commits_data[commit_date] += 1
         end
       end
       erb :search
