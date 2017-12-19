@@ -9,7 +9,7 @@ module Example
     CLIENT_ID        = ENV['GH_GRAPH_CLIENT_ID']
     CLIENT_SECRET    = ENV['GH_GRAPH_SECRET_ID']
 
-    attr_accessor :language_obj, :languages, :repo_name, :commits_data, :repo_search
+    attr_accessor :language_obj, :languages, :repo_name, :commits_data, :repo_search, :octokit_client
     
     enable :sessions
 
@@ -26,8 +26,8 @@ module Example
       if !authenticated?
         authenticate!
       else
-        octokit_client = Octokit::Client.new(:login => github_user.login, :access_token => github_user.token)
-        repos = octokit_client.repositories
+        @octokit_client = Octokit::Client.new(:login => github_user.login, :access_token => github_user.token)
+        repos = @octokit_client.repositories
         @language_obj = {}
         repos.each do |repo|
           # sometimes language can be nil
@@ -45,13 +45,13 @@ module Example
           @languages.push [lang, count]
         end
 
-        repos = octokit_client.repositories
+        repos = @octokit_client.repositories
         repo = repos.sample
         @repo_name = repo.name
         repo_langs = []
         begin
           repo_url = "#{github_user.login}/#{@repo_name}"
-          repo_langs = octokit_client.languages(repo_url)
+          repo_langs = @octokit_client.languages(repo_url)
         rescue Octokit::NotFound
           puts "Error retrieving languages for #{repo_url}"
         end
@@ -80,11 +80,10 @@ module Example
   end
 
   post '/search' do
-    octokit_client = Octokit::Client.new(:login => github_user.login, :access_token => github_user.token)
     begin
       @repo_search = params[:repo_searched] 
       repo_url = "#{@repo_search}"
-      repo_commits = octokit_client.commits(repo_url)
+      repo_commits = @octokit_client.commits(repo_url)
       @commits_data = {}
       repo_commits.map do |single_commit|
         if !@commits_data[single_commit]
@@ -95,7 +94,6 @@ module Example
       end
       erb :search
     rescue Octokit::NotFound
-      puts "Error retrieving languages for #{repo_url}"
       redirect '/error'
     end
   end
