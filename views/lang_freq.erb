@@ -8,7 +8,7 @@
 
   <body>
     <center>
-      <h1> <%= @repo_name %> Stats</h1>
+      <h1> <%= @repo_name %> Stats </h1>
       <p>
         <%= pie_chart (@language_obj) %>
       </p>
@@ -19,6 +19,11 @@
       <p>
         <%= column_chart (@languages), {library: {hAxis: {title: "Language"}, vAxis: {title: "# of repos"}}} %>
       </p>
+      <form method="POST" action="/search">
+        <p>Repo URL: <input type = "text" name = "repo_searched"></p>
+        <button type = "submit"> Search! </button>
+      </form>
+
     </center>
   </body>
 </html>

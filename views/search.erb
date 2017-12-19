@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sinatra ERB Chartkick Test</title>
+    <script src="//www.google.com/jsapi"></script>
+    <script src="chartkick.js"></script>
+  </head>
+
+  <body>
+    <center>
+        <h1> <%= @repo_name %> Stats </h1>
+        <p>
+            <%= pie_chart (@language_obj) %>
+        </p>
+        <form method="POST" action="/reroll">
+            <button type = "submit"> Use me to try a different repo! </button>
+        </form>
+        <h1> What Languages Are In Your Repos? </h1>
+        <p>
+            <%= column_chart (@languages), {library: {hAxis: {title: "Language"}, vAxis: {title: "# of repos"}}} %>
+        </p>
+        <form method="POST" action="/search">
+            <p>Repo URL: <input type = "text" name = "repo_searched"></p>
+            <button type = "submit"> Search! </button>
+        </form>
+        
+        <h1> <%= @repo_search %> Stats </h1>
+        <p>
+            <%= line_chart @commits_data %>
+        </p>
+    </center>
+  </body>
+</html>

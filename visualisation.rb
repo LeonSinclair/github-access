@@ -7,10 +7,12 @@ module Example
   class MyGraphApp < Sinatra::Base
     CLIENT_ID        = ENV['GH_GRAPH_CLIENT_ID']
     CLIENT_SECRET    = ENV['GH_GRAPH_SECRET_ID']
+
+    attr_accessor :language_obj, :languages,  :repo_name
     
     enable :sessions
 
-    attr_accessor :language_obj, :languages,  :repo_name
+    
     set :github_options, {
       :scopes    => "repo",
       :secret    => CLIENT_SECRET,
@@ -68,6 +70,24 @@ module Example
     end
   post '/reroll' do
     redirect '/'
+  end
+
+  post '/search' do
+    octokit_client = Octokit::Client.new(:login => github_user.login, :access_token => github_user.token)
+    begin
+      @repo_search = params[:repo_searched] 
+      repo_url = "#{@repo_search}"
+      repo_commits = octokit_client.commits(repo_url)
+      @commits_data = []
+      repo_commits.map do |single_commit|
+        @commits_data.push (single_commit.commit.author.date)
+      end
+      erb :search
+    rescue Octokit::NotFound
+      puts "Error retrieving languages for #{repo_url}"
+      redirect '/error'
+      erb :error
+    end
   end
 
   
