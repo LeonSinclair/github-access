@@ -8,18 +8,6 @@
 
   <body>
     <center>
-        <h1> <%= @repo_name %> Stats </h1>
-        <p>
-            <%= pie_chart (@language_obj) %>
-        </p>
-        <form method="POST" action="/reroll">
-            <button type = "submit"> Use me to try a different repo! </button>
-        </form>
-        <h1> What Languages Are In Your Repos? </h1>
-        <p>
-            <%= column_chart (@languages), {library: {hAxis: {title: "Language"}, vAxis: {title: "# of repos"}}} %>
-        </p>
-
         <h1> Error: No Such Repo Found. </h1>
         <form method="POST" action="/search">
             <p>Repo URL (e.g. LeonSinclair/github-access): <input type = "text" name = "repo_searched"></p>
