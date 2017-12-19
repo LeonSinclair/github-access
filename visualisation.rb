@@ -88,9 +88,9 @@ module Example
       @commits_data = {}
       repo_commits.each do |single_commit|
         if !@commits_data[single_commit]
-          !@commits_data[single_commit] = count
+          @commits_data[single_commit] = 1
         else
-          !@commits_data[single_commit] += count
+          @commits_data[single_commit] += 1
         end
       end
       erb :search
