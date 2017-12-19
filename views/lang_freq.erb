@@ -14,12 +14,7 @@
       </p>
       <h1> Languages - Column Chart </h1>
       <p>
-        <%= column_chart (@languages), xtitle: "Language", ytitle: "Appears in" %>
-      </p>
-
-      <h1> God knows what </h1>
-      <p>
-           <%= bar_chart (@languages), xtitle: "Language", ytitle: "Appears in" %>
+        <%= column_chart (@languages), {library: {hAxis: {title: "Language"}, vAxis: {title: "# of repos"}}} %>
       </p>
     </center>
   </body>
