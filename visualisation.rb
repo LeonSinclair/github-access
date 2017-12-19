@@ -50,6 +50,8 @@ module Example
     end
   post '/reroll' do
     rerollRepo
+
+    erb :lang_freq
   end
 
   def rerollRepo
