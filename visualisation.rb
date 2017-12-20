@@ -79,16 +79,14 @@ module Example
   end
 
   post '/search' do
+    Octokit.auto_paginate = true
     begin
       @repo_search = params[:repo_searched] 
       repo_url = "#{@repo_search}"
       repo_commits = Octokit.list_commits(repo_url, :per_page => 100)
       last_response = Octokit.last_response
       @commits_data = {}
-      until last_response.rels[:next].nil?
-        last_response = last_response.rels[:next].get
-        repo_commits.push last_response.data.items
-      end
+      
       repo_commits.each do |single_commit|
         commit_date = single_commit.commit.author.date.to_date
         if !@commits_data[commit_date]
