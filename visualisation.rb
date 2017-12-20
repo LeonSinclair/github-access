@@ -83,9 +83,9 @@ module Example
       @repo_search = params[:repo_searched] 
       repo_url = "#{@repo_search}"
       repo_commits = Octokit.list_commits(repo_url)
-      @commits_data = {:date => :count}
+      @commits_data = {}
       repo_commits.each do |single_commit|
-        commit_date = single_commit.commit.author.date
+        commit_date = single_commit.commit.author.date.strftime("%m/%d/%Y")
         if !@commits_data[commit_date]
           @commits_data[commit_date] = 1
         else
