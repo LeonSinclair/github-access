@@ -84,7 +84,7 @@ module Example
       @repo_search = params[:repo_searched] 
       repo_url = "#{@repo_search}"
       repo_commits = Octokit.list_commits(repo_url, :per_page => 100)
-      last_response = Octokit.last_response
+      repo_langs = Octokit.languages(repo_url)
       @commits_data = {}
       
       repo_commits.each do |single_commit|
@@ -95,6 +95,17 @@ module Example
           @commits_data[commit_date] += 1
         end
       end
+      @language_obj = {}
+      if !repo_langs.empty?
+        repo_langs.each do |lang, count|
+          if !@language_obj[lang]
+            @language_obj[lang] = count
+          else
+            @language_obj[lang] += count
+          end
+        end
+      end
+
       erb :search
     rescue Octokit::NotFound, Octokit::InvalidRepository
       redirect '/error'

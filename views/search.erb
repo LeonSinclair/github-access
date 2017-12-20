@@ -8,10 +8,14 @@
 
   <body>
     <center>
-        <h1> <%= @repo_search %> Stats </h1>
+        <h1> <%= @repo_search %> Commit History </h1>
         <p>
             <%= line_chart @commits_data %>
         </p>
+        <h1> <%= @repo_search %> Language Breakdown - Bytes </h1>
+      <p>
+        <%= pie_chart (@language_obj) %>
+      </p>
     </center>
   </body>
 </html>
