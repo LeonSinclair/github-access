@@ -8,7 +8,7 @@
 
   <body>
     <center>
-        <h1> <%= @repo_search %> Commit History </h1>
+        <h1> <%= @repo_search.split("/") %> Commit History </h1>
         <p>
             <%= line_chart @commits_data %>
         </p>
