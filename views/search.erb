@@ -10,7 +10,7 @@
     <center>
         <h1> <%= @repo_search %> Stats </h1>
         <p>
-            <%= line_chart @commits_data.group_by_day %>
+            <%= line_chart @commits_data.group_by_day(:date) %>
         </p>
     </center>
   </body>
