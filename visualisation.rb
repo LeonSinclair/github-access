@@ -82,7 +82,7 @@ module Example
     begin
       @repo_search = params[:repo_searched] 
       repo_url = "#{@repo_search}"
-      repo_commits = Octokit.list_commits(repo_url, ::per_page => 100)
+      repo_commits = Octokit.list_commits(repo_url, :per_page => 100)
       @commits_data = {}
       repo_commits.each do |single_commit|
         commit_date = single_commit.commit.author.date.to_date
