@@ -10,7 +10,7 @@
     <center>
         <h1> <%= @repo_search %> Stats </h1>
         <p>
-            <%= line_chart @commits_data %>
+            <%= line_chart @commits_data, library: { hAxis: { format: 'YYYY/MM/dd' } }  %>
         </p>
     </center>
   </body>

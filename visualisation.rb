@@ -1,7 +1,6 @@
 require 'sinatra/auth/github'
 require 'octokit'
 require 'chartkick'
-require 'groupdate'
 
 
 module Example
@@ -80,7 +79,6 @@ module Example
   end
 
   post '/search' do
-
     begin
       @repo_search = params[:repo_searched] 
       repo_url = "#{@repo_search}"
