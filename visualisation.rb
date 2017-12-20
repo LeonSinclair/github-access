@@ -87,7 +87,7 @@ module Example
       repo_commits = Octokit.list_commits(repo_url)
       @commits_data = {:date => :count}
       repo_commits.each do |single_commit|
-        commit_date = single_commit.commit.author.date.strftime("%F")
+        commit_date = single_commit.commit.author.date
         if !@commits_data[commit_date]
           @commits_data[commit_date] = 1
         else
